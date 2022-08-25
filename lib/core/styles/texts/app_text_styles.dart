@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppTextStyle {
   static TextStyle headLine() => TextStyle(
     fontSize: 20.0.sp,
-    fontWeight: FontWeight.w800,
+    fontWeight: FontWeight.w700,
     color: Colors.black,
     fontFamily: "Cairo",
   );

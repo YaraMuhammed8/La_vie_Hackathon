@@ -8,7 +8,7 @@ import 'package:la_vie/cubit/quiz/quiz_cubit.dart';
 import 'package:la_vie/cubit/user/user_cubit.dart';
 
 import '../core/styles/themes/light_theme.dart';
-import '../cubit/forumn/forum_cubit.dart';
+import '../cubit/forum/forum_cubit.dart';
 import '../cubit/main/main_cubit.dart';
 import '../view/splash/splash_screen.dart';
 
@@ -45,7 +45,7 @@ class AppRoot extends StatelessWidget {
                   );
                 },
                 debugShowCheckedModeBanner: false,
-                title: "Donut Boat",
+                title: "La Vie",
                 theme: lightTheme,
                 home: const SplashScreen(),
               ),

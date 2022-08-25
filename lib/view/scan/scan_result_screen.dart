@@ -93,8 +93,12 @@ class _ScanResultScreenState extends State<ScanResultScreen> {
                             width: double.infinity,
                             padding: const EdgeInsets.all(20),
                             decoration: BoxDecoration(
-                                color: AppColors.lightBackGroundColor,
-                                borderRadius: BorderRadius.circular(20.r)),
+                              color: AppColors.lightBackGroundColor,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20.r),
+                                topRight: Radius.circular(20.r),
+                              ),
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -107,7 +111,8 @@ class _ScanResultScreenState extends State<ScanResultScreen> {
                                   " conditions similar to those in southern regions of the United States."
                                   " Because of this, they may be grown"
                                   " outdoors for part of all of the year in USDA zones 8 and warmer",
-                                  style: AppTextStyle.bodyText().copyWith(color: Colors.grey),
+                                  style: AppTextStyle.bodyText()
+                                      .copyWith(color: Colors.grey),
                                 ),
                                 Text(
                                   cubit.scannedPlant!.name,
@@ -115,10 +120,11 @@ class _ScanResultScreenState extends State<ScanResultScreen> {
                                 ),
                                 Text(
                                   "A widespread problem with snake plants is root rot."
-                                      " This results from over-watering the soil of"
-                                      " the plant and is most common in the colder"
-                                      " months of the year. ",
-                                  style: AppTextStyle.bodyText().copyWith(color: Colors.grey),
+                                  " This results from over-watering the soil of"
+                                  " the plant and is most common in the colder"
+                                  " months of the year. ",
+                                  style: AppTextStyle.bodyText()
+                                      .copyWith(color: Colors.grey),
                                 ),
                                 const Spacer(),
                                 DefaultButton(

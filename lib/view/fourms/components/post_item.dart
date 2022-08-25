@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_vie/core/styles/colors/app_colors.dart';
 import 'package:la_vie/core/styles/texts/app_text_styles.dart';
-import 'package:la_vie/core/utils/navigation.dart';
 import 'package:la_vie/model/forum/forum_model.dart';
 
-import '../../../cubit/forumn/forum_cubit.dart';
+import '../../../cubit/forum/forum_cubit.dart';
 import '../forum_comments_screen.dart';
 
 class PostItem extends StatelessWidget {
@@ -64,7 +63,9 @@ class PostItem extends StatelessWidget {
                       "${forumModel.description}",
                       style: AppTextStyle.subTitle(),
                     ),
-                    SizedBox(height: 10.h,),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5.r),
                       child: Image(
@@ -78,41 +79,57 @@ class PostItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                cubit.likeForum(
-                                    forumModel.forumId!, forumKind);
-                              },
-                              icon: const Icon(
-                                Icons.favorite_border,
+                        TextButton(
+                          onPressed: () {
+                            cubit.likeForum(forumModel.forumId!, forumKind);
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              (cubit.isUserLiked(forumModel.forumLikes!))
+                                  ? Icon(Icons.favorite_rounded,
+                                      color: AppColors.primaryColor)
+                                  : Icon(Icons.favorite_border_rounded,
+                                      color: Colors.grey),
+                              SizedBox(
+                                width: 5.w,
                               ),
-                            ),
-                            Text(
-                              "${forumModel.forumLikes!.length} Likes",
-                            ),
-                          ],
+                              Text(
+                                "${forumModel.forumLikes!.length} Likes",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          ),
                         ),
-                        Row(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                NavigationUtils.navigateTo(
-                                  context: context,
-                                  destinationScreen: ForumCommentsScreen(
-                                    comments: forumModel.forumComments ?? [],
-                                  ),
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.comment_outlined,
+                        const Spacer(),
+                        TextButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20))),
+                                builder: (context) => ForumCommentsScreen(
+                                      comments: forumModel.forumComments ?? [],
+                                      forumId: forumModel.forumId!,
+                                      forumKind: forumKind,
+                                    ));
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.chat_bubble_outline_rounded,
+                                color: Colors.grey,
                               ),
-                            ),
-                            Text(
-                              "${forumModel.forumComments!.length} Comments",
-                            ),
-                          ],
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Text(
+                                  "${forumModel.forumComments!.length} Comments",
+                                  style: TextStyle(color: Colors.grey)),
+                            ],
+                          ),
                         ),
                       ],
                     ),

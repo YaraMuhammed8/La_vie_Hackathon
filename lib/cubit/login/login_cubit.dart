@@ -14,6 +14,7 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
   static LoginCubit get(context) => BlocProvider.of(context);
+
   int currentTabBarItem = 0;
   void changeCurrentTabBarItem(int index) {
     currentTabBarItem = index;
@@ -29,6 +30,8 @@ class LoginCubit extends Cubit<LoginState> {
       loginResponse = SignUpInResponse.fromJson(value.data);
       CacheHelper.saveData(
           key: "accessToken", value: loginResponse!.data.accessToken);
+      CacheHelper.saveData(
+          key: "userId", value: loginResponse!.data.user.userId);
       emit(LoginSuccessfulState());
     }).catchError((error) {
       print("login error is: ${error.toString()}");
@@ -56,6 +59,8 @@ class LoginCubit extends Cubit<LoginState> {
       signupResponse = SignUpInResponse.fromJson(value.data);
       CacheHelper.saveData(
           key: "accessToken", value: signupResponse!.data.accessToken);
+      CacheHelper.saveData(
+          key: "userId", value: signupResponse!.data.user.userId);
       emit(CreateUserSuccessfulState());
     }).catchError((error) {
       print("creating user error is: ${error.toString()}");
@@ -94,6 +99,7 @@ class LoginCubit extends Cubit<LoginState> {
       },
     ).then((value) {
       CacheHelper.saveData(key: "accessToken", value: value.data['data']['accessToken']);
+      CacheHelper.saveData(key: "userId", value: value.data['data']['user']['userId']);
       emit(LoginSuccessfulState());
     });
   }

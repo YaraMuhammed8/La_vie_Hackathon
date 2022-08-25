@@ -7,7 +7,7 @@ import 'package:la_vie/core/components/default_text_form_field.dart';
 import 'package:la_vie/core/styles/colors/app_colors.dart';
 import 'package:la_vie/core/styles/texts/app_text_styles.dart';
 
-import '../../cubit/forumn/forum_cubit.dart';
+import '../../cubit/forum/forum_cubit.dart';
 
 
 class CreateNewPostScreen extends StatelessWidget {

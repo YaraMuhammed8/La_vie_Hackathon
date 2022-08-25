@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_vie/core/components/default_button.dart';
+import 'package:la_vie/core/styles/colors/app_colors.dart';
 import 'package:la_vie/core/styles/texts/app_text_styles.dart';
+import 'package:la_vie/core/utils/navigation.dart';
 import 'package:la_vie/cubit/cart/cart_cubit.dart';
 import 'package:la_vie/services/local/sql/sql_helper.dart';
 import 'package:la_vie/view/cart/components/cart_item.dart';
@@ -22,6 +24,7 @@ class _CartScreenState extends State<CartScreen> {
     SqlHelper.initDB();
     CartCubit.get(context).getAllCartProducts();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CartCubit, CartState>(
@@ -39,14 +42,14 @@ class _CartScreenState extends State<CartScreen> {
           ),
           body: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: ( cubit.products ==null)
-                ? const CircularProgressIndicator.adaptive()
+            child: (cubit.products == null)
+                ? const CircularProgressIndicator()
                 : (cubit.products!.isEmpty)
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: 35.h,
+                            height: 45.h,
                           ),
                           Image(
                             image: const AssetImage(
@@ -60,16 +63,25 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           Text(
                             "Your cart is empty",
-                            style: AppTextStyle.title(),
+                            style: AppTextStyle.headLine(),
                           ),
                           SizedBox(
                             height: 5.h,
                           ),
                           Text(
-                            "Sorry, the keyword you entered cannot be found, please check again or search with another keyword.",
+                            "Sorry, your cart is empty,go back to see products and fill your cart and make order",
                             textAlign: TextAlign.center,
                             style: AppTextStyle.subTitle(),
                           ),
+                          IconButton(
+                              onPressed: () {
+                                NavigationUtils.navigateBack(
+                                    context: context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_outlined,
+                                color: AppColors.primaryColor,
+                              ))
                         ],
                       )
                     : Column(
@@ -101,7 +113,7 @@ class _CartScreenState extends State<CartScreen> {
                                 Text(
                                   "${cubit.price} EGP",
                                   style: AppTextStyle.subTitle().copyWith(
-                                    color: Colors.green,
+                                    color: AppColors.primaryColor,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 )

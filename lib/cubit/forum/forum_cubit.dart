@@ -58,13 +58,43 @@ class ForumCubit extends Cubit<ForumState> {
     DioHelper.postData(
       url: "forums/$forumId/like",
       token: CacheHelper.getData(key: 'accessToken'),
-    ).then((value){
-      if(forumKind==0){
+    ).then((value) {
+      if (forumKind == 0) {
         getAllForums();
-      }else{
+      } else {
         getMyForums();
       }
       emit(ForumLikeSuccessState());
+    }).catchError((error) {
+      print("like post error is ${error.toString()}");
+      emit(ForumLikeErrorState());
+    });
+  }
+
+  bool isUserLiked( List<ForumLikes> forumLikes) {
+    String userId = CacheHelper.getData(key: "userId")??"";
+    for (var userLike in forumLikes) {
+      if (userLike.userId == userId) return true;
+    }
+    return false;
+  }
+
+  void sendCommentOnForum(String forumId, int forumKind,
+      {required String comment}) {
+    emit(CommentOnForumLoadingState());
+    DioHelper.postData(
+        url: "forums/$forumId/comment",
+        token: CacheHelper.getData(key: 'accessToken'),
+        data: {"comment": comment}).then((value) {
+      if (forumKind == 0) {
+        getAllForums();
+      } else {
+        getMyForums();
+      }
+      emit(CommentOnForumSuccessfulState());
+    }).catchError((error) {
+      print("send comment error is ${error.toString()}");
+      emit(CommentOnForumErrorState());
     });
   }
 

@@ -23,3 +23,8 @@ class ForumPickImageState extends ForumState {}
 
 class ForumLikeLoadingState extends ForumState {}
 class ForumLikeSuccessState extends ForumState {}
+class ForumLikeErrorState extends ForumState {}
+
+class CommentOnForumLoadingState extends ForumState {}
+class CommentOnForumSuccessfulState extends ForumState {}
+class CommentOnForumErrorState extends ForumState {}

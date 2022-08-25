@@ -44,7 +44,8 @@ class UserCubit extends Cubit<UserState> {
         final resultFile = File(value.path);
         Uint8List bytes = await resultFile.readAsBytes();
         base64Image = base64.encode(bytes);
-        base64Image = "data:image/${value.name.split('.').last};base64,$base64Image";
+        base64Image =
+            "data:image/${value.name.split('.').last};base64,$base64Image";
         log(base64Image);
         uploadedImage =
             UploadedImage(base64Image: base64Image, file: resultFile);
@@ -87,10 +88,6 @@ class UserCubit extends Cubit<UserState> {
             token: CacheHelper.getData(key: "accessToken"))
         .then((value) {
       print(value.data);
-      // userDataResponse!.data.firstName = firstName;
-      // userDataResponse!.data.lastName = lastName;
-      // userDataResponse!.data.email = email;
-      // userDataResponse!.data.address = address;
       emit(UpdateUserDataSuccessfulState());
       getUserData();
     }).catchError((error) {

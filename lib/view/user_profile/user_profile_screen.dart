@@ -99,8 +99,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               child: Container(
                                 padding: const EdgeInsets.all(20),
                                 decoration: BoxDecoration(
-                                    color: AppColors.lightBackGroundColor,
-                                    borderRadius: BorderRadius.circular(20.r)),
+                                  color: AppColors.lightBackGroundColor,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20.r),
+                                    topRight: Radius.circular(20.r),
+                                  ),
+                                ),
                                 child: SingleChildScrollView(
                                   physics: const BouncingScrollPhysics(),
                                   child: Column(

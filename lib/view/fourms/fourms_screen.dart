@@ -5,7 +5,7 @@ import 'package:la_vie/core/components/default_text_form_field.dart';
 import 'package:la_vie/core/utils/navigation.dart';
 import 'package:la_vie/view/home/tab_bar_item.dart';
 
-import '../../cubit/forumn/forum_cubit.dart';
+import '../../cubit/forum/forum_cubit.dart';
 import 'all_forums.dart';
 import 'create_new_post_screen.dart';
 import 'my_forums.dart';
@@ -31,8 +31,9 @@ class _ForumsScreenState extends State<ForumsScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ForumCubit.get(context).getAllForums();
-    ForumCubit.get(context).getMyForums();
+    ForumCubit.get(context)
+      ..getAllForums()
+      ..getMyForums();
   }
 
   @override
@@ -44,11 +45,14 @@ class _ForumsScreenState extends State<ForumsScreen> {
       builder: (context, state) {
         var cubit = ForumCubit.get(context);
         return Scaffold(
+          resizeToAvoidBottomInset: true,
           body: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                SizedBox(height: 20.h,),
+                SizedBox(
+                  height: 20.h,
+                ),
                 DefaultTextFormField(
                   textInputType: TextInputType.text,
                   controller: searchController,
@@ -60,23 +64,26 @@ class _ForumsScreenState extends State<ForumsScreen> {
                   isFilled: true,
                   fillColor: Colors.grey.shade100,
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(
+                  height: 20.h,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children:List.generate(tabBarItems.length, (index) => HomeTabBarItem(
-                      title: tabBarItems[index],
-                      isActive: index == cubit.currentTabBarItem,
-                      onTap: () {
-                        cubit.changeCurrentTabBarItem(index);
-                      }),),
+                  children: List.generate(
+                    tabBarItems.length,
+                    (index) => HomeTabBarItem(
+                        title: tabBarItems[index],
+                        isActive: index == cubit.currentTabBarItem,
+                        onTap: () {
+                          cubit.changeCurrentTabBarItem(index);
+                        }),
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
                 ),
                 Expanded(
-                  child: state is ForumGetAllForumsLoadingState ||
-                          state is ForumGetMyForumsLoadingState
-                      ? const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        )
-                      : grids[cubit.currentTabBarItem],
+                  child: grids[cubit.currentTabBarItem],
                 ),
               ],
             ),
