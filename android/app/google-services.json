@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "346871588730",
+    "project_id": "lavie-7b17d",
+    "storage_bucket": "lavie-7b17d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346871588730:android:618fb5624bda22223ed8c3",
+        "android_client_info": {
+          "package_name": "com.example.la_vie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346871588730-pb903d7cvpirb2avpdo4ktsf0g7mmglj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.la_vie",
+            "certificate_hash": "94ee6972e7cf9def3dbf6c6d784d2dc0c521f57c"
+          }
+        },
+        {
+          "client_id": "346871588730-sf6fkeqshll0urm3bifn6rfkcgs5jkbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPuLRm8mfMKLwCFDCNw0fH897k6le3ntk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346871588730-sf6fkeqshll0urm3bifn6rfkcgs5jkbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
