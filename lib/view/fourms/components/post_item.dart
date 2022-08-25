@@ -37,6 +37,7 @@ class PostItem extends StatelessWidget {
             children: [
               ListTile(
                 leading: CircleAvatar(
+                  backgroundColor: AppColors.lightBackGroundColor,
                   backgroundImage: NetworkImage(forumModel.user!.imageUrl!),
                 ),
                 title: Text(

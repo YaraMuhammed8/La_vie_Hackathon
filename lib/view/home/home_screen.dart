@@ -8,11 +8,11 @@ import 'package:la_vie/cubit/home/home_cubit.dart';
 import 'package:la_vie/cubit/quiz/quiz_cubit.dart';
 import 'package:la_vie/view/cart/cart_screen.dart';
 import 'package:la_vie/view/fourms/fourms_screen.dart';
+import 'package:la_vie/view/home/components/tab_bar_item.dart';
 import 'package:la_vie/view/home/grids/all_grid.dart';
 import 'package:la_vie/view/home/grids/plants_grid.dart';
 import 'package:la_vie/view/home/grids/seeds_grid.dart';
 import 'package:la_vie/view/home/grids/tools_grid.dart';
-import 'package:la_vie/view/home/tab_bar_item.dart';
 
 import '../quiz/quiz_screen.dart';
 import '../search_product/search_screen.dart';

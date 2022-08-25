@@ -21,3 +21,6 @@ class GetPlantDetailsLoadingState extends HomeState {}
 class GetPlantDetailsSuccessfulState extends HomeState {}
 class GetPlantDetailsErrorState extends HomeState {}
 class ResetScanResultState extends HomeState {}
+class SearchSuccessfulState extends HomeState {}
+class SearchLoadingState extends HomeState {}
+class ClearSearchResultState extends HomeState {}

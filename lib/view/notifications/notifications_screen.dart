@@ -20,35 +20,14 @@ class NotificationsScreen extends StatelessWidget {
           height: 20.h,
         ),
         Expanded(
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            children: const [
-              NotificationItem(
-                isThereParagraph: false,
-              ),
-              Divider(),
-              NotificationItem(
-                isThereParagraph: true,
-              ),
-              Divider(),
-              NotificationItem(
-                isThereParagraph: false,
-              ),
-              Divider(),
-              NotificationItem(
-                isThereParagraph: false,
-              ),
-              Divider(),
-              NotificationItem(
-                isThereParagraph: true,
-              ),
-              Divider(),
-              NotificationItem(
-                isThereParagraph: false,
-              ),
-            ],
+            child: ListView.separated(
+          physics: const BouncingScrollPhysics(),
+          itemCount: 10,
+          itemBuilder: (context, index) => NotificationItem(
+            isThereParagraph: false,
           ),
-        ),
+          separatorBuilder: (context, index) => const Divider(),
+        )),
       ],
     );
   }

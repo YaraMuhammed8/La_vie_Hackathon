@@ -113,6 +113,22 @@ class HomeCubit extends Cubit<HomeState> {
 
   void resetScannedResult(){
     scannedPlant = null;
-    emit(state);
+    emit(ResetScanResultState());
+  }
+
+  List<dynamic>? searchedProducts;
+  void searchProducts(String keyword) {
+    searchedProducts = [];
+    emit(SearchLoadingState());
+    for (var element in products) {
+      if (element.name.toString().toLowerCase().contains(keyword.toLowerCase())) {
+        searchedProducts!.add(element);
+      }
+    }
+    emit(SearchSuccessfulState());
+  }
+  void clearSearchResult(){
+    searchedProducts =null;
+    emit(ClearSearchResultState());
   }
 }

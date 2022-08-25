@@ -52,7 +52,7 @@ class DefaultTextFormField extends StatefulWidget {
       this.maxLength,
       this.maxLines,
       this.labelText,
-        this.hintText,
+      this.hintText,
       required this.textInputType,
       required this.controller,
       this.onFilledSubmit,
@@ -125,12 +125,12 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
           horizontal: widget.contentPaddingHorizontal.w,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              widget.borderRadius.r,
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                widget.borderRadius.r,
+              ),
             ),
-          ),
-        ),
+            borderSide: (!widget.hasBorder) ? BorderSide.none : BorderSide()),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(

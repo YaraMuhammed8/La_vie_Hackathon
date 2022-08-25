@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_vie/core/components/default_text_form_field.dart';
 import 'package:la_vie/core/utils/navigation.dart';
-import 'package:la_vie/view/home/tab_bar_item.dart';
+import 'package:la_vie/view/home/components/tab_bar_item.dart';
 
 import '../../cubit/forum/forum_cubit.dart';
 import 'all_forums.dart';

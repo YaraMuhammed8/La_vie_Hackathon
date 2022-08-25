@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:la_vie/cubit/cart/cart_cubit.dart';
 import 'package:la_vie/model/cart/cart_model.dart';
-import 'package:la_vie/view/home/grid_item_types/plant_info.dart';
+import 'package:la_vie/view/home/components/plant_info.dart';
 
 import '../../../core/components/default_button.dart';
 import '../../../core/styles/colors/app_colors.dart';

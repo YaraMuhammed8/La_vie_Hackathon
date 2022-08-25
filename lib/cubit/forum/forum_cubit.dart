@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:la_vie/core/styles/colors/app_colors.dart';
 import 'package:la_vie/model/forum/forum_model.dart';
 import 'package:la_vie/services/local/shared_preference/cache_helper.dart';
 import 'package:la_vie/services/network/dio/dio_helper.dart';
@@ -111,10 +112,12 @@ class ForumCubit extends Cubit<ForumState> {
     ).then((value) {
       Fluttertoast.showToast(
         msg: "Your Post Uploaded Successfully",
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.primaryColor,
       );
       uploadedPostImage = null;
       emit(ForumCreatePostSuccessState());
+      getAllForums();
+      getMyForums();
     }).catchError((error) {
       debugPrint(error.toString());
       emit(ForumCreatePostErrorState());

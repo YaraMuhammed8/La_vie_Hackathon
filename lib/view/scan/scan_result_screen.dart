@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:la_vie/core/components/default_button.dart';
 import 'package:la_vie/core/styles/texts/app_text_styles.dart';
 import 'package:la_vie/core/utils/navigation.dart';
@@ -40,6 +41,11 @@ class _ScanResultScreenState extends State<ScanResultScreen> {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
         // TODO: implement listener
+        if (state is GetPlantDetailsErrorState) {
+          Fluttertoast.showToast(
+              msg: "Sorry, an error has occurred",
+              backgroundColor: Colors.black45);
+        }
       },
       builder: (context, state) {
         var cubit = HomeCubit.get(context);

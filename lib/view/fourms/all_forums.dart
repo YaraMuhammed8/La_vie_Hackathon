@@ -18,7 +18,7 @@ class AllForumsView extends StatelessWidget {
       builder: (context, state) {
         var cubit = ForumCubit.get(context);
         return (cubit.allForumModel == null)
-            ? const CircularProgressIndicator()
+            ? Center(child: const CircularProgressIndicator())
             : (cubit.allForumModel!.data!.isEmpty)
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
