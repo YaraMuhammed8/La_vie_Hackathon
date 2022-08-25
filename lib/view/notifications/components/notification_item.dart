@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:la_vie/core/styles/colors/app_colors.dart';
 
 import '../../../core/styles/texts/app_text_styles.dart';
 
@@ -14,6 +15,7 @@ class NotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: const CircleAvatar(
+        backgroundColor: AppColors.lightBackGroundColor,
         backgroundImage: NetworkImage(
             "https://img.freepik.com/free-photo/waist-up-portrait-handsome-serious-unshaven-male-keeps-hands-together-dressed-dark-blue-shirt-has-talk-with-interlocutor-stands-against-white-wall-self-confident-man-freelancer_273609-16320.jpg?w=1380&t=st=1661270944~exp=1661271544~hmac=27633c09819b1643b83de21dc964cc6a5bc9b6f66a87701069f899f57b84ae02"),
       ),

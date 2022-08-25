@@ -53,8 +53,8 @@ class ForumCubit extends Cubit<ForumState> {
     });
   }
 
-  bool liked = false;
   void likeForum(String forumId, int forumKind) {
+    addLikeToModels(forumId);
     emit(ForumLikeLoadingState());
     DioHelper.postData(
       url: "forums/$forumId/like",
@@ -68,16 +68,50 @@ class ForumCubit extends Cubit<ForumState> {
       emit(ForumLikeSuccessState());
     }).catchError((error) {
       print("like post error is ${error.toString()}");
+      addLikeToModels(forumId);
       emit(ForumLikeErrorState());
     });
   }
 
-  bool isUserLiked( List<ForumLikes> forumLikes) {
-    String userId = CacheHelper.getData(key: "userId")??"";
+  bool isUserLiked(List<ForumLikes> forumLikes) {
+    String userId = CacheHelper.getData(key: "userId") ?? "";
     for (var userLike in forumLikes) {
       if (userLike.userId == userId) return true;
     }
     return false;
+  }
+
+  void addLikeToModels(String forumId) {
+    addLikeToAllForumsModel(forumId);
+    addLikeToMyForumsModel(forumId);
+  }
+
+  void addLikeToAllForumsModel(String forumId) {
+    for (var forum in allForumModel!.data!) {
+      if (forum.forumId == forumId) {
+        if (isUserLiked(forum.forumLikes!)) {
+          forum.forumLikes!.removeWhere((element) =>
+              element.userId == CacheHelper.getData(key: "userId"));
+        } else {
+          forum.forumLikes!.add(ForumLikes(
+              forumId: forumId, userId: CacheHelper.getData(key: "userId")));
+        }
+      }
+    }
+  }
+
+  void addLikeToMyForumsModel(String forumId) {
+    for (var forum in myForumModel!.data!) {
+      if (forum.forumId == forumId) {
+        if (isUserLiked(forum.forumLikes!)) {
+          forum.forumLikes!.removeWhere((element) =>
+              element.userId == CacheHelper.getData(key: "userId"));
+        } else {
+          forum.forumLikes!.add(ForumLikes(
+              forumId: forumId, userId: CacheHelper.getData(key: "userId")));
+        }
+      }
+    }
   }
 
   void sendCommentOnForum(String forumId, int forumKind,

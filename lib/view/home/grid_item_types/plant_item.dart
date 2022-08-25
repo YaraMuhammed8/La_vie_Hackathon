@@ -53,7 +53,7 @@ class _PlantItemState extends State<PlantItem> {
                 ),
               ),
               SizedBox(
-                width: 5.w,
+                width: 2.w,
               ),
               Expanded(
                 child: Column(

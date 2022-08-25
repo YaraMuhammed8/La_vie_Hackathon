@@ -51,6 +51,8 @@ class ForumLikes {
   String? forumId;
   String? userId;
 
+  ForumLikes({required this.forumId, required this.userId,});
+
   ForumLikes.fromJson(Map<String, dynamic> json) {
     forumId = json['forumId'];
     userId = json['userId'];
