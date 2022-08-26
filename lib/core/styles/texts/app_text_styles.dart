@@ -17,13 +17,13 @@ class AppTextStyle {
   );
   static TextStyle title() => TextStyle(
     fontSize: 16.0.sp,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w600,
     color: Colors.black,
     fontFamily: "Cairo",
     height: 1.2.h,
   );
   static TextStyle bodyText() => TextStyle(
-    fontSize: 16.0.sp,
+    fontSize: 14.0.sp,
     fontWeight: FontWeight.normal,
     color: Colors.black,
     fontFamily: "Cairo",

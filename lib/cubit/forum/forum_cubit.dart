@@ -4,9 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:la_vie/core/styles/colors/app_colors.dart';
 import 'package:la_vie/model/forum/forum_model.dart';
 import 'package:la_vie/services/local/shared_preference/cache_helper.dart';
 import 'package:la_vie/services/network/dio/dio_helper.dart';
@@ -25,28 +23,28 @@ class ForumCubit extends Cubit<ForumState> {
     emit(ChangeTabBarItem());
   }
 
-  ForumModel? allForumModel;
+  ForumsModel? allForumModel;
   void getAllForums() {
     emit(ForumGetAllForumsLoadingState());
     DioHelper.getData(
       url: ALL_FORUMS,
       token: CacheHelper.getData(key: 'accessToken'),
     ).then((value) {
-      allForumModel = ForumModel.fromJson(value.data);
+      allForumModel = ForumsModel.fromJson(value.data);
       emit(ForumGetAllForumsSuccessState());
     }).catchError((error) {
       emit(ForumGetAllForumsErrorState());
     });
   }
 
-  ForumModel? myForumModel;
+  ForumsModel? myForumModel;
   void getMyForums() {
     emit(ForumGetMyForumsLoadingState());
     DioHelper.getData(
       url: MY_FORUMS,
       token: CacheHelper.getData(key: 'accessToken'),
     ).then((value) {
-      myForumModel = ForumModel.fromJson(value.data);
+      myForumModel = ForumsModel.fromJson(value.data);
       emit(ForumGetMyForumsSuccessState());
     }).catchError((error) {
       emit(ForumGetMyForumsErrorState());
@@ -60,12 +58,9 @@ class ForumCubit extends Cubit<ForumState> {
       url: "forums/$forumId/like",
       token: CacheHelper.getData(key: 'accessToken'),
     ).then((value) {
-      if (forumKind == 0) {
-        getAllForums();
-      } else {
-        getMyForums();
-      }
       emit(ForumLikeSuccessState());
+      getAllForums();
+      getMyForums();
     }).catchError((error) {
       print("like post error is ${error.toString()}");
       addLikeToModels(forumId);
@@ -114,6 +109,7 @@ class ForumCubit extends Cubit<ForumState> {
     }
   }
 
+
   void sendCommentOnForum(String forumId, int forumKind,
       {required String comment}) {
     emit(CommentOnForumLoadingState());
@@ -121,12 +117,9 @@ class ForumCubit extends Cubit<ForumState> {
         url: "forums/$forumId/comment",
         token: CacheHelper.getData(key: 'accessToken'),
         data: {"comment": comment}).then((value) {
-      if (forumKind == 0) {
-        getAllForums();
-      } else {
-        getMyForums();
-      }
       emit(CommentOnForumSuccessfulState());
+      getAllForums();
+      getMyForums();
     }).catchError((error) {
       print("send comment error is ${error.toString()}");
       emit(CommentOnForumErrorState());
@@ -144,10 +137,6 @@ class ForumCubit extends Cubit<ForumState> {
       },
       token: CacheHelper.getData(key: 'accessToken'),
     ).then((value) {
-      Fluttertoast.showToast(
-        msg: "Your Post Uploaded Successfully",
-        backgroundColor: AppColors.primaryColor,
-      );
       uploadedPostImage = null;
       emit(ForumCreatePostSuccessState());
       getAllForums();

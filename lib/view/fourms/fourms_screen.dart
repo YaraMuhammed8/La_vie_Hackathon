@@ -6,9 +6,8 @@ import 'package:la_vie/core/utils/navigation.dart';
 import 'package:la_vie/view/home/components/tab_bar_item.dart';
 
 import '../../cubit/forum/forum_cubit.dart';
-import 'all_forums.dart';
+import 'components/forums_list_view.dart';
 import 'create_new_post_screen.dart';
-import 'my_forums.dart';
 
 class ForumsScreen extends StatefulWidget {
   const ForumsScreen({Key? key}) : super(key: key);
@@ -22,10 +21,7 @@ class _ForumsScreenState extends State<ForumsScreen> {
 
   final TextEditingController searchController = TextEditingController();
 
-  List<Widget> grids = [
-    const AllForumsView(),
-    const MyForumsView(),
-  ];
+  List<Widget> forumsLists = [];
 
   @override
   void initState() {
@@ -44,6 +40,10 @@ class _ForumsScreenState extends State<ForumsScreen> {
       },
       builder: (context, state) {
         var cubit = ForumCubit.get(context);
+        forumsLists = [
+          ForumsListView(forums: ForumCubit.get(context).allForumModel),
+          ForumsListView(forums: ForumCubit.get(context).myForumModel),
+        ];
         return Scaffold(
           resizeToAvoidBottomInset: true,
           body: Padding(
@@ -83,7 +83,7 @@ class _ForumsScreenState extends State<ForumsScreen> {
                   height: 10.h,
                 ),
                 Expanded(
-                  child: grids[cubit.currentTabBarItem],
+                  child: forumsLists[cubit.currentTabBarItem],
                 ),
               ],
             ),

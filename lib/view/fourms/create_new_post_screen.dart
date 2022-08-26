@@ -9,7 +9,6 @@ import 'package:la_vie/core/styles/texts/app_text_styles.dart';
 
 import '../../cubit/forum/forum_cubit.dart';
 
-
 class CreateNewPostScreen extends StatelessWidget {
   CreateNewPostScreen({Key? key}) : super(key: key);
   final TextEditingController titleController = TextEditingController();
@@ -18,9 +17,20 @@ class CreateNewPostScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ForumCubit,ForumState>(
+    return BlocConsumer<ForumCubit, ForumState>(
       listener: (context, state) {
         // TODO: implement listener
+        if (state is ForumCreatePostSuccessState) {
+          Fluttertoast.showToast(
+            msg: "Your Post Uploaded Successfully",
+            backgroundColor: AppColors.primaryColor,
+          );
+        } else if (state is ForumCreatePostErrorState) {
+          Fluttertoast.showToast(
+            msg: "Sorry,an error has occurred while creating post",
+            backgroundColor: Colors.black45,
+          );
+        }
       },
       builder: (context, state) {
         var cubit = ForumCubit.get(context);

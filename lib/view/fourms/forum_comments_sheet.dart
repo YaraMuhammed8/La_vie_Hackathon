@@ -5,15 +5,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:la_vie/core/components/default_text_form_field.dart';
 import 'package:la_vie/core/styles/colors/app_colors.dart';
 import 'package:la_vie/core/styles/texts/app_text_styles.dart';
+import 'package:la_vie/core/utils/format_date.dart';
 import 'package:la_vie/cubit/forum/forum_cubit.dart';
 import 'package:la_vie/model/forum/forum_model.dart';
+import 'package:la_vie/services/local/shared_preference/cache_helper.dart';
 
-class ForumCommentsScreen extends StatelessWidget {
+class ForumCommentsSheet extends StatelessWidget {
   final List<ForumComments> comments;
   String forumId;
   int forumKind;
   TextEditingController commentController = TextEditingController();
-  ForumCommentsScreen(
+  ForumCommentsSheet(
       {super.key,
       required this.comments,
       required this.forumId,
@@ -72,20 +74,24 @@ class ForumCommentsScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      comments[index].userId.toString(),
+                                      (comments[index].userId.toString() ==
+                                              CacheHelper.getData(
+                                                  key: "userId"))
+                                          ? "Me"
+                                          : comments[index].userId.toString(),
                                       style: AppTextStyle.title(),
                                     ),
                                     Text(
-                                      comments[index].createdAt.toString(),
-                                      style: AppTextStyle.subTitle().copyWith(
-                                        fontSize: 11.sp,
-                                      ),
-                                    ),
+                                      comments[index].comment.toString(),
+                                      style: AppTextStyle.bodyText(),
+                                    )
                                   ],
                                 ),
                                 subtitle: Text(
-                                  comments[index].comment.toString(),
-                                  style: AppTextStyle.subTitle(),
+                                  formatDate(comments[index].createdAt!),
+                                  style: AppTextStyle.subTitle().copyWith(
+                                    fontSize: 11.sp,
+                                  ),
                                 ),
                               ),
                           separatorBuilder: (context, index) => const Divider(),
@@ -104,7 +110,7 @@ class ForumCommentsScreen extends StatelessWidget {
                             hintText: "write comment",
                           ),
                         ),
-                        TextButton(
+                        IconButton(
                             onPressed: () {
                               if (commentController.text.isNotEmpty) {
                                 cubit.sendCommentOnForum(forumId, forumKind,
@@ -116,10 +122,10 @@ class ForumCommentsScreen extends StatelessWidget {
                                 }
                               }
                             },
-                            child: Text(
-                              "Post",
-                              style: AppTextStyle.bodyText()
-                                  .copyWith(color: AppColors.primaryColor),
+                            icon: Icon(
+                              Icons.send_rounded,
+                              color: AppColors.primaryColor,
+                              size: 30,
                             ))
                       ],
                     ),

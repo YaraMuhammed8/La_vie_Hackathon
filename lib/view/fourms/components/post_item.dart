@@ -6,10 +6,10 @@ import 'package:la_vie/core/styles/texts/app_text_styles.dart';
 import 'package:la_vie/model/forum/forum_model.dart';
 
 import '../../../cubit/forum/forum_cubit.dart';
-import '../forum_comments_screen.dart';
+import '../forum_comments_sheet.dart';
 
 class PostItem extends StatelessWidget {
-  final Data forumModel;
+  final Forum forumModel;
   final int forumKind;
   const PostItem({
     super.key,
@@ -37,8 +37,21 @@ class PostItem extends StatelessWidget {
             children: [
               ListTile(
                 leading: CircleAvatar(
-                  backgroundColor: AppColors.lightBackGroundColor,
-                  backgroundImage: NetworkImage(forumModel.user!.imageUrl!),
+                  backgroundColor: Colors.grey.shade50,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50.r),
+                    child: Image.network(
+                      forumModel.user!.imageUrl!,
+                      fit: BoxFit.cover,
+                      height: 50.h,
+                      width: 50.w,
+                      errorBuilder: (context, object, trace) => Icon(
+                        Icons.person,
+                        size: 40,
+                        color: Colors.grey.shade300,
+                      ),
+                    ),
+                  ),
                 ),
                 title: Text(
                   "${forumModel.user!.firstName} ${forumModel.user!.lastName}",
@@ -69,12 +82,15 @@ class PostItem extends StatelessWidget {
                     ),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5.r),
-                      child: Image(
-                        image: NetworkImage(
-                          'https://lavie.orangedigitalcenteregypt.com${forumModel.imageUrl!}',
-                        ),
+                      child: Image.network(
+                        'https://lavie.orangedigitalcenteregypt.com${forumModel.imageUrl!}',
                         fit: BoxFit.cover,
                         width: double.infinity,
+                        errorBuilder: (context, object, trace) => Icon(
+                          Icons.image_outlined,
+                          size: 150,
+                          color: Colors.grey.shade200,
+                        ),
                       ),
                     ),
                     Row(
@@ -110,7 +126,7 @@ class PostItem extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.vertical(
                                         top: Radius.circular(20))),
-                                builder: (context) => ForumCommentsScreen(
+                                builder: (context) => ForumCommentsSheet(
                                       comments: forumModel.forumComments ?? [],
                                       forumId: forumModel.forumId!,
                                       forumKind: forumKind,
